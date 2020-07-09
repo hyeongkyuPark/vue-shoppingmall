@@ -1,7 +1,7 @@
 <template>
   <div class="main-header">
       <div class="left-item">
-          <a href="#">BrandShop</a>
+          <a href="/">BrandShop</a>
       </div>
       <div class="right-item">
           <ul v-if="login">
@@ -10,7 +10,7 @@
           </ul>
           <ul v-else>
               <li class="menu"><a href="#">회원가입</a></li>
-              <li class="menu"><a href="#">로그인</a></li>
+              <li class="menu"><a href="/login">로그인</a></li>
           </ul>
       </div>
   </div>

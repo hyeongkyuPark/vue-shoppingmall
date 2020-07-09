@@ -4,7 +4,7 @@ import { library as faLibrary } from '@fortawesome/fontawesome-svg-core';
 import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueMq from 'vue-mq';
-
+import VueRouter from 'vue-router';
 
 Vue.config.productionTip = false;
 
@@ -22,8 +22,29 @@ Vue.use(VueMq, {
   }
 });
 
+Vue.use(VueRouter);
+
+import {MainPage, LoginPage} from './pages'
+
+const routes = [
+  {
+    path: '/login',
+    component: LoginPage
+  },
+  {
+    path: '/',
+    component: MainPage
+  }
+];
+
+const router = new VueRouter({
+  mode: 'history',
+  routes: routes
+})
+
 new Vue({
   render: h => h(App),
+  router
 }).$mount('#app');
 
 

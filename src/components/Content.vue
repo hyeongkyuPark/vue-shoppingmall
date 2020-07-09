@@ -1,9 +1,9 @@
 <template>
   <div class="content-box">
+      <h2>{{selectMenu.view}}</h2>
       <Search />
       <div class="product-list" :class="$mq">
-          
-          <div v-for="product in products" v-bind:key="product" class="product-box">
+          <div v-for="product in viewItems" v-bind:key="product" class="product-box">
               <div class="product">
                   <img v-bind:src="product.imageURL" class="product-img">
                   <div class="product-info">
@@ -23,46 +23,6 @@
                   </div>
               </div>
           </div>
-          <div v-for="product in products" v-bind:key="product" class="product-box">
-              <div class="product">
-                  <img v-bind:src="product.imageURL" class="product-img">
-                  <div class="product-info">
-                      <h3 class="brand">{{product.brand}}</h3>
-                      <p class="name">{{product.name}}</p>
-                      <p class="price">{{product.price}}</p>
-                      <div class="attr">
-                        <div>
-                            <div v-if="product.orderRunaway" class="order-runaway">주문폭주</div>
-                            <div v-if="product.todyDelivery" class="today-delivery">당일배송</div>
-                        </div>
-                        <p class="review">(리뷰 : {{product.review}})</p>
-                      </div>
-                  </div>
-                  <div class="add-icon">
-
-                  </div>
-              </div>
-          </div>
-          <div v-for="product in products" v-bind:key="product" class="product-box">
-              <div class="product">
-                  <img v-bind:src="product.imageURL" class="product-img">
-                  <div class="product-info">
-                      <h3 class="brand">{{product.brand}}</h3>
-                      <p class="name">{{product.name}}</p>
-                      <p class="price">{{product.price}}</p>
-                      <div class="attr">
-                        <div>
-                            <div v-if="product.orderRunaway" class="order-runaway">주문폭주</div>
-                            <div v-if="product.todyDelivery" class="today-delivery">당일배송</div>
-                        </div>
-                        <p class="review">(리뷰 : {{product.review}})</p>
-                      </div>
-                  </div>
-                  <div class="add-icon">
-
-                  </div>
-              </div>
-          </div>
           
       </div>
   </div>
@@ -75,6 +35,9 @@ export default {
     components: {
         Search
     },
+    props: [
+        'selectMenu'
+    ],
     data: function() {
         return {
             products: [
@@ -130,15 +93,43 @@ export default {
                 },
                 {
                     name: 'LMC THREE BEARS TEE white',
-                    category: 'shooes',
+                    category: 'shirt',
                     brand: 'LMC',
                     price: '39,000',
                     imageURL: require('../assets/images/products/LMC-shirt (2).jpg'),
                     review: 0,
                     orderRunaway: true,
                     todyDelivery: false
+                },
+                {
+                    name: '[2Pack] Cotton Colline Shorts (6color)',
+                    category: 'pants',
+                    brand: '파르티맨토',
+                    price: '74,400',
+                    imageURL: require('../assets/images/products/파르티맨토-pants.jpg'),
+                    review: 0,
+                    orderRunaway: true,
+                    todyDelivery: true
                 }
             ]
+        }
+    },
+    computed: {
+        viewItems: function() {
+
+            if(this.selectMenu.config == 'category' && this.selectMenu.name !== 'all') {
+                
+                return this.products.filter(product => product.category == this.selectMenu.name);
+            }
+
+            if(this.selectMenu.config == 'brand' && this.selectMenu.name !== 'all') {
+                
+                return this.products.filter(product => product.brand == this.selectMenu.name);
+            }
+        console.log('asdsadjzxkjhk');
+        
+            return this.products;
+
         }
     }
 }
